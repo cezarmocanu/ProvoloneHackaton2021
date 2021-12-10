@@ -23,14 +23,14 @@ class ButtonWidget extends StatelessWidget {
         );
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.only(left: 16.0, top: 0.0, right: 16.0, bottom: 16.0),
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(color: Colors.transparent),
             borderRadius: const BorderRadius.all(Radius.circular(8.0)),
             color: const Color(0xFFFF7272),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

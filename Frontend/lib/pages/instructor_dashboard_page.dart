@@ -26,23 +26,28 @@ class InstructorDashboardPage extends StatelessWidget {
                       child: FlutterLogo(),
                     ),
                     Text("Nume judet"),
-                    const Divider(
-                      indent: 16,
-                      endIndent: 16,
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 16.0),
+                      child: Divider(
+                        indent: 16,
+                        endIndent: 16,
+                        color: Colors.white,
+                      ),
                     ),
-                    ButtonWidget(btnText: "btnText", btnRoute: RoutesEnum.TODO),
-                    Container(
-                      child: Text("Dashboard"),
-                    ),
-                    const Divider(
-                      indent: 16,
-                      endIndent: 16,
+                    ButtonWidget(btnText: "Dashboard", btnRoute: RoutesEnum.INSTRUCTOR_DASHBOARD),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 16.0),
+                      child: Divider(
+                        indent: 16,
+                        endIndent: 16,
+                        color: Colors.white,
+                      ),
                     ),
                     Expanded(
                       child: ListView.builder(
                         itemCount: exampleGroups.length,
                         itemBuilder: (context, index) {
-                          return Text(exampleGroups[index]);
+                          return ButtonWidget(btnText: exampleGroups[index], btnRoute: RoutesEnum.INSTRUCTOR_DASHBOARD);
                         },
                       ),
                     ),
