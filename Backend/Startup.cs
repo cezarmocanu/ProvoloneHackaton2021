@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,12 +34,24 @@ namespace Provolone
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ProvoloneContext>(options =>
+                options.UseNpgsql(
+                    ConnectionString));
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddControllers();
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
             services.AddScoped<IAuthenticationToken, AuthenticationToken>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ProvoloneContext>();
+
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Provolone", Version = "v1" });
@@ -81,8 +94,11 @@ namespace Provolone
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("MyPolicy");
 
             app.UseAuthorization();
+
+            app.UseMigrationsEndPoint();
 
             app.UseEndpoints(endpoints =>
             {

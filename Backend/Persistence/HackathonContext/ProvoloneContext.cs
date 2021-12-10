@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Provolone.Domains.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Provolone.Persistence.HackathonContext
         {
         }
 
-        //public virtual DbSet<TestDB> TestTable { get; set; }
+        public virtual DbSet<User> TestTable { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,12 +33,12 @@ namespace Provolone.Persistence.HackathonContext
         {
             modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
 
-            /*modelBuilder.Entity<TestDB>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
-                entity.ToTable("TestTable");
+                entity.ToTable("User");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
-            });*/
+            });
 
             OnModelCreatingPartial(modelBuilder);
         }
