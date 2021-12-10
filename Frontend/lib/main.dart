@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vot_senat_client/bloc/todo_bloc/todo_bloc.dart';
-import 'package:vot_senat_client/pages/todo_page.dart';
 import 'package:vot_senat_client/routes.dart';
 
 void main() async {
@@ -25,7 +24,7 @@ class App extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: RoutesEnum.HOME,
+        initialRoute: RoutesEnum.DASHBOARD,
         routes: routesMap,
       ),
     );
