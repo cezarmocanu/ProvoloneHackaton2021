@@ -4,6 +4,7 @@ import 'package:vot_senat_client/bloc/todo_bloc/todo_bloc.dart';
 import 'package:vot_senat_client/pages/todo_page.dart';
 import 'package:vot_senat_client/routes.dart';
 
+import 'bloc/groups_bloc/groups_bloc.dart';
 import 'bloc/login_bloc/login_bloc.dart';
 
 void main() async {
@@ -24,13 +25,16 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) => LoginBloc(),
         ),
+        BlocProvider(
+          create: (BuildContext context) => GroupsBloc(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: RoutesEnum.LOGIN,
+        initialRoute: RoutesEnum.GROUPS,
         routes: routesMap,
       ),
     );
