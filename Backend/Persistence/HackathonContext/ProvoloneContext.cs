@@ -18,7 +18,7 @@ namespace Provolone.Persistence.HackathonContext
         {
         }
 
-        public virtual DbSet<User> TestTable { get; set; }
+        public virtual DbSet<User> User { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,15 +31,9 @@ namespace Provolone.Persistence.HackathonContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "English_United States.1252");
-
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.ToTable("User");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-            });
-
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
             OnModelCreatingPartial(modelBuilder);
         }
 

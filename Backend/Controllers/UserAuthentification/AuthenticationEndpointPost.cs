@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,6 +20,7 @@ namespace Hackathon.WebApi.Controllers
         {
             this.authenticationManager = testTableManager;
         }
+
         [HttpPost]
         [SwaggerOperation(
            Summary = "Login",
@@ -26,20 +28,28 @@ namespace Hackathon.WebApi.Controllers
            OperationId = "Login.Login",
            Tags = new[] { "Login" })
         ]
-        public AuthenticationEndpointGetResponse Handle([FromBody] AuthenticationEndpointGetRquest request, CancellationToken cancellationToken = default)
+        public IActionResult Handle([FromBody] AuthenticationEndpointGetRequest request, CancellationToken cancellationToken = default)
         {
             if (request == null)
             {
-                throw new NotImplementedException();
+                return BadRequest();
             }
-            return new AuthenticationEndpointGetResponse
+
+            var token = authenticationManager.GetToken(request.Username, request.Password);
+
+            if(token == null)
             {
-                Token = authenticationManager.GetToken(request.Username, request.Password),
-            };
+                return Unauthorized();
+            }
+
+            return Ok(new AuthenticationEndpointGetResponse
+            {
+                Token = token
+            });
         }
     }
 
-    public partial class AuthenticationEndpointGetRquest
+    public partial class AuthenticationEndpointGetRequest
     {
         public string Username { get; set; }
 

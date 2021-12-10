@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Provolone.Contracts.DataAccess;
+using Provolone.Persistence.DataAccess;
 using Provolone.Persistence.HackathonContext;
 using System;
 using System.Collections.Generic;
@@ -43,6 +45,7 @@ namespace Provolone
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
             services.AddScoped<IAuthenticationToken, AuthenticationToken>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserDataAccess, UserDataAccess>();
             services.AddScoped<ProvoloneContext>();
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
