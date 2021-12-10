@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:vot_senat_client/widgets/dashboard/title.dart';
+import 'package:vot_senat_client/widgets/common/button.dart';
+import 'package:vot_senat_client/widgets/common/title.dart';
+
+import '../routes.dart';
 
 class InstructorDashboardPage extends StatelessWidget {
   List<String> exampleGroups = ["Algebra", "Stiinte", "Biologie", "Tamplarie"];
@@ -27,6 +30,7 @@ class InstructorDashboardPage extends StatelessWidget {
                       indent: 16,
                       endIndent: 16,
                     ),
+                    ButtonWidget(btnText: "btnText", btnRoute: RoutesEnum.TODO),
                     Container(
                       child: Text("Dashboard"),
                     ),

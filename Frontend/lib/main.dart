@@ -34,7 +34,7 @@ class App extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: RoutesEnum.REGISTER,
+        initialRoute: RoutesEnum.INSTRUCTOR_DASHBOARD,
         routes: routesMap,
       ),
     );

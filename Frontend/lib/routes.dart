@@ -8,7 +8,7 @@ import 'package:vot_senat_client/pages/register_page.dart';
 class RoutesEnum {
   static String HOME = "Home";
   static String TODO = "Todo";
-  static String DASHBOARD = "InstructorDashboard";
+  static String INSTRUCTOR_DASHBOARD = "InstructorDashboard";
   static String LOGIN = "Login";
   static String REGISTER = "Register";
 }
@@ -18,5 +18,5 @@ Map<String, Widget Function(BuildContext)> routesMap = {
   RoutesEnum.TODO: (BuildContext context) => TodoPage(),
   RoutesEnum.LOGIN: (BuildContext context) => LoginPage(),
   RoutesEnum.REGISTER: (BuildContext context) => RegisterPage(),
-  RoutesEnum.DASHBOARD: (BuildContext context) => InstructorDashboardPage(),
+  RoutesEnum.INSTRUCTOR_DASHBOARD: (BuildContext context) => InstructorDashboardPage(),
 };
