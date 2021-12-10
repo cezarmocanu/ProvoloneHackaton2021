@@ -9,24 +9,24 @@ using System.Threading.Tasks;
 
 namespace Hackathon.WebApi.Controllers
 {
-    [Route("api/{username}/{password}/login")]
+    [Route("api/login")]
     [AllowAnonymous]
-    public class AuthenticationEndpointGet : Controller
+    public class AuthenticationEndpointPost : Controller
     {
         private readonly IAuthenticationManager authenticationManager;
 
-        public AuthenticationEndpointGet(IAuthenticationManager testTableManager)
+        public AuthenticationEndpointPost(IAuthenticationManager testTableManager)
         {
             this.authenticationManager = testTableManager;
         }
-        [HttpGet("")]
+        [HttpPost]
         [SwaggerOperation(
-           Summary = "Lists Test",
-           Description = "Lists Test",
-           OperationId = "Test.ListTest",
-           Tags = new[] { "Test" })
+           Summary = "Login",
+           Description = "Login using username and password",
+           OperationId = "Login.Login",
+           Tags = new[] { "Login" })
         ]
-        public AuthenticationEndpointGetResponse Handle(AuthenticationEndpointGetRquest request, CancellationToken cancellationToken = default)
+        public AuthenticationEndpointGetResponse Handle([FromBody] AuthenticationEndpointGetRquest request, CancellationToken cancellationToken = default)
         {
             if (request == null)
             {
@@ -41,10 +41,8 @@ namespace Hackathon.WebApi.Controllers
 
     public partial class AuthenticationEndpointGetRquest
     {
-        [FromRoute(Name = "username")]
         public string Username { get; set; }
 
-        [FromRoute(Name = "password")]
         public string Password { get; set; }
     }
 
