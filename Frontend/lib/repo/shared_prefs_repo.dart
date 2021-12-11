@@ -2,19 +2,18 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 
-class LoginRepo {
-  const LoginRepo._internal();
+class RegisterRepo {
+  const RegisterRepo._internal();
 
-  static const LoginRepo instance = LoginRepo._internal();
+  static const RegisterRepo instance = RegisterRepo._internal();
 
   Future<Response> login(String username, String password) async {
-    Uri url = Uri.https("hackathon-alexandras.herokuapp.com", "api/login");
+    Uri url = Uri.https("hackathon-alexandras.herokuapp.com", "api/register");
 
     try {
       Response response = await post(
         url,
         headers: <String, String>{
-          "accept": "text/plain",
           'Content-Type': 'application/json; charset=UTF-8',
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Credentials": "true", // Required for cookies, authorization headers with HTTPS

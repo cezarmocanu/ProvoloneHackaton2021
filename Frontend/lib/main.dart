@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vot_senat_client/bloc/todo_bloc/todo_bloc.dart';
-import 'package:vot_senat_client/pages/todo_page.dart';
 import 'package:vot_senat_client/routes.dart';
 
 import 'bloc/login_bloc/login_bloc.dart';
 import 'bloc/register_bloc/register_bloc.dart';
+import 'bloc/shared_prefs_bloc/shared_prefs_bloc.dart';
 
 void main() async {
   runApp(const App());
@@ -28,6 +28,9 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) => RegisterBloc(),
         ),
+        BlocProvider(
+          create: (BuildContext context) => SharedPrefsBloc(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -43,7 +46,7 @@ class App extends StatelessWidget {
                 onSecondary: const Color(0xFFFBFAF7),
               ),
         ),
-        initialRoute: RoutesEnum.INSTRUCTOR_DASHBOARD,
+        initialRoute: RoutesEnum.SPLASH,
         routes: routesMap,
       ),
     );

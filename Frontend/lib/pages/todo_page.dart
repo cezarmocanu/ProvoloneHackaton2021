@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vot_senat_client/bloc/shared_prefs_bloc/shared_prefs_bloc.dart';
+import 'package:vot_senat_client/bloc/shared_prefs_bloc/shared_prefs_event.dart';
+import 'package:vot_senat_client/bloc/shared_prefs_bloc/shared_prefs_state.dart';
 import 'package:vot_senat_client/bloc/todo_bloc/todo_bloc.dart';
 import 'package:vot_senat_client/bloc/todo_bloc/todo_event.dart';
 import 'package:vot_senat_client/bloc/todo_bloc/todo_state.dart';
@@ -14,6 +17,8 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
+  String token = "";
+
   @override
   void initState() {
     super.initState();
@@ -24,7 +29,7 @@ class _TodoPageState extends State<TodoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Todo App"),
+        title: Text(token),
       ),
       body: BlocBuilder<TodoBloc, TodoState>(
         builder: (context, todoState) {
