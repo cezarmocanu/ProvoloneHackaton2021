@@ -4,6 +4,7 @@ import 'package:vot_senat_client/pages/home_page.dart';
 import 'package:vot_senat_client/pages/login_page.dart';
 import 'package:vot_senat_client/pages/splash_page.dart';
 import 'package:vot_senat_client/pages/todo_page.dart';
+import 'package:vot_senat_client/pages/groups_page.dart';
 import 'package:vot_senat_client/pages/register_page.dart';
 
 class RoutesEnum {
@@ -13,6 +14,7 @@ class RoutesEnum {
   static String LOGIN = "login";
   static String INSTRUCTOR_DASHBOARD = "InstructorDashboard";
   static String REGISTER = "register";
+  static String GROUPS = "GROUPS";
 }
 
 Map<String, Widget Function(BuildContext)> routesMap = {
@@ -20,6 +22,7 @@ Map<String, Widget Function(BuildContext)> routesMap = {
   RoutesEnum.HOME: (BuildContext context) => HomePage(),
   RoutesEnum.TODO: (BuildContext context) => TodoPage(),
   RoutesEnum.LOGIN: (BuildContext context) => LoginPage(),
+  RoutesEnum.GROUPS: (BuildContext context) => GroupsPage(),
   RoutesEnum.REGISTER: (BuildContext context) => RegisterPage(),
   RoutesEnum.INSTRUCTOR_DASHBOARD: (BuildContext context) => InstructorDashboardPage(),
 };

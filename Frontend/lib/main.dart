@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vot_senat_client/bloc/todo_bloc/todo_bloc.dart';
 import 'package:vot_senat_client/routes.dart';
 
+import 'bloc/groups_bloc/groups_bloc.dart';
 import 'bloc/login_bloc/login_bloc.dart';
 import 'bloc/register_bloc/register_bloc.dart';
 import 'bloc/shared_prefs_bloc/shared_prefs_bloc.dart';
@@ -24,6 +25,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (BuildContext context) => LoginBloc(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => GroupsBloc(),
         ),
         BlocProvider(
           create: (BuildContext context) => RegisterBloc(),
