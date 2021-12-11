@@ -9,15 +9,13 @@ namespace InternshippClass.Models.Entities
     {
         public Field()
         {
-            Fields = new HashSet<Field>();
+            Disciplines = new HashSet<Discipline>();
         }
 
         public long Id { get; set; }
 
         public string Name { get; set; }
 
-        public long DisciplineId { get; set; }
-
-        public virtual ICollection<Field> Fields { get; set; }
+        public virtual ICollection<Discipline> Disciplines { get; set; }
     }
 }

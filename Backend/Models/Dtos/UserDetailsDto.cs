@@ -1,18 +1,15 @@
-﻿using InternshippClass.Models.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Provolone.Domains.Entities
+namespace InternshippClass.Models.Dtos
 {
-    public class User
+    public class UserDetailsDto
     {
         public int Id { get; set; }
 
         public string Email { get; set; }
-
-        public string Password { get; set; }
 
         public string FirstName { get; set; }
 
@@ -20,10 +17,8 @@ namespace Provolone.Domains.Entities
 
         public string Username { get; set; }
 
-        public long? RoleId { get; set; }
+        public string Role { get; set; }
 
-        public virtual Role? Role { get; set; }
-
-        public virtual Discipline Discipline { get; set; }
+        public IEnumerable<string> Permissions { get; set; }
     }
 }

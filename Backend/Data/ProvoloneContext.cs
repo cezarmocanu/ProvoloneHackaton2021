@@ -32,15 +32,14 @@ namespace InternshippClass.Data
 
         public DbSet<Mark> Marks { get; set; }
 
+        public DbSet<PermissionsToRoles> PermissionsToRoles { get; set; }
+
         public DbSet<VocationalGroup> VocationalGroups { get; set; }
+
+        public DbSet<UserToVocationalGroup> UserToVocationalGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*modelBuilder.Entity<Intern>()
-                .HasOne(_ => _.Location)
-                .WithMany(_ => _.LocalInterns)
-                .HasForeignKey("locationId")
-                .IsRequired();*/
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Provolone.Dtos;
+﻿using InternshippClass.Models.Dtos;
+using Provolone.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace Provolone.Contracts.DataAccess
         Task<bool> AddUserAsync(UserRegisterDto userDto);
 
         Task<bool> UserExistsAsync(string username, string password);
+
+        Task<UserDetailsDto> GetUserDetails(string username);
     }
 }

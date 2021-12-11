@@ -11,6 +11,7 @@ namespace InternshippClass.Models.Entities
         {
             Marks = new HashSet<Mark>();
         }
+
         public long Id { get; set; }
 
         public string FirstName { get; set; }
@@ -27,7 +28,7 @@ namespace InternshippClass.Models.Entities
 
         public string Description { get; set; }
 
-        public long MarkId { get; set; }
+        public virtual VocationalGroup VocationalGroup { get; set; }
 
         public virtual ICollection<Mark> Marks { get; set; }
     }

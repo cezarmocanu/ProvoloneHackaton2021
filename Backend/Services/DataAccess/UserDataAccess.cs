@@ -1,4 +1,6 @@
 ﻿using InternshippClass.Data;
+using InternshippClass.Models.Dtos;
+using InternshippClass.Services.Mappings;
 using Microsoft.EntityFrameworkCore;
 using Provolone.Contracts.DataAccess;
 using Provolone.Domains.Entities;
@@ -47,6 +49,15 @@ namespace Provolone.Persistence.DataAccess
             }
 
             return false;
+        }
+
+        public async Task<UserDetailsDto> GetUserDetails(string username)
+        {
+            var user = await dbContext.Users
+                .Include(u => u.Role)
+                .SingleAsync(u => u.Username.Equals(username));
+
+            return UserMapping.MapList(user);
         }
     }
 }
