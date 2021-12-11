@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InternshippClass.Migrations
 {
     [DbContext(typeof(ProvoloneContext))]
-    [Migration("20211211020206_add-all-entities")]
+    [Migration("20211211043629_add-all-entities")]
     partial class addallentities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,21 +28,16 @@ namespace InternshippClass.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long?>("MarkId")
+                    b.Property<long>("FieldId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long?>("VocationalGroupId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("MarkId");
-
-                    b.HasIndex("VocationalGroupId");
+                    b.HasIndex("FieldId");
 
                     b.ToTable("Disciplines");
                 });
@@ -54,19 +49,11 @@ namespace InternshippClass.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long>("DisciplineId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("FieldId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FieldId");
 
                     b.ToTable("Fields");
                 });
@@ -126,10 +113,7 @@ namespace InternshippClass.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("MarkId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("VocationalGroupId")
+                    b.Property<long>("VocationalGroupId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -159,6 +143,10 @@ namespace InternshippClass.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DisciplineId");
+
+                    b.HasIndex("LearnerId");
 
                     b.ToTable("Marks");
                 });
@@ -195,12 +183,34 @@ namespace InternshippClass.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("PermissionId")
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("InternshippClass.Models.Entities.UserToVocationalGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("VocationalGroupId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.HasIndex("UserId1");
+
+                    b.HasIndex("VocationalGroupId");
+
+                    b.ToTable("UsersToVocationalGroups");
                 });
 
             modelBuilder.Entity("InternshippClass.Models.Entities.VocationalGroup", b =>
@@ -209,12 +219,6 @@ namespace InternshippClass.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<long>("DisciplineId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("LearnerId")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -228,27 +232,15 @@ namespace InternshippClass.Migrations
                     b.ToTable("VocationalGroups");
                 });
 
-            modelBuilder.Entity("LearnerMark", b =>
-                {
-                    b.Property<long>("LearnersId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("MarksId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("LearnersId", "MarksId");
-
-                    b.HasIndex("MarksId");
-
-                    b.ToTable("LearnerMark");
-                });
-
             modelBuilder.Entity("Provolone.Domains.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long>("DisciplineId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -266,31 +258,32 @@ namespace InternshippClass.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long?>("RoleId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DisciplineId");
+
+                    b.HasIndex("RoleId")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("InternshippClass.Models.Entities.Discipline", b =>
                 {
-                    b.HasOne("InternshippClass.Models.Entities.Mark", null)
+                    b.HasOne("InternshippClass.Models.Entities.Field", "Field")
                         .WithMany("Disciplines")
-                        .HasForeignKey("MarkId");
+                        .HasForeignKey("FieldId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("InternshippClass.Models.Entities.VocationalGroup", null)
-                        .WithMany("Disciplines")
-                        .HasForeignKey("VocationalGroupId");
-                });
-
-            modelBuilder.Entity("InternshippClass.Models.Entities.Field", b =>
-                {
-                    b.HasOne("InternshippClass.Models.Entities.Field", null)
-                        .WithMany("Fields")
-                        .HasForeignKey("FieldId");
+                    b.Navigation("Field");
                 });
 
             modelBuilder.Entity("InternshippClass.Models.Entities.GroupToDiscipline", b =>
@@ -314,9 +307,32 @@ namespace InternshippClass.Migrations
 
             modelBuilder.Entity("InternshippClass.Models.Entities.Learner", b =>
                 {
-                    b.HasOne("InternshippClass.Models.Entities.VocationalGroup", null)
+                    b.HasOne("InternshippClass.Models.Entities.VocationalGroup", "VocationalGroup")
                         .WithMany("Learners")
-                        .HasForeignKey("VocationalGroupId");
+                        .HasForeignKey("VocationalGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VocationalGroup");
+                });
+
+            modelBuilder.Entity("InternshippClass.Models.Entities.Mark", b =>
+                {
+                    b.HasOne("InternshippClass.Models.Entities.Discipline", "Discipline")
+                        .WithMany("Marks")
+                        .HasForeignKey("DisciplineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("InternshippClass.Models.Entities.Learner", "Learner")
+                        .WithMany("Marks")
+                        .HasForeignKey("LearnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Discipline");
+
+                    b.Navigation("Learner");
                 });
 
             modelBuilder.Entity("InternshippClass.Models.Entities.Permission", b =>
@@ -326,40 +342,67 @@ namespace InternshippClass.Migrations
                         .HasForeignKey("RoleId");
                 });
 
-            modelBuilder.Entity("LearnerMark", b =>
+            modelBuilder.Entity("InternshippClass.Models.Entities.UserToVocationalGroup", b =>
                 {
-                    b.HasOne("InternshippClass.Models.Entities.Learner", null)
+                    b.HasOne("Provolone.Domains.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("LearnersId")
+                        .HasForeignKey("UserId1");
+
+                    b.HasOne("InternshippClass.Models.Entities.VocationalGroup", "VocationalGroup")
+                        .WithMany()
+                        .HasForeignKey("VocationalGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("InternshippClass.Models.Entities.Mark", null)
-                        .WithMany()
-                        .HasForeignKey("MarksId")
+                    b.Navigation("User");
+
+                    b.Navigation("VocationalGroup");
+                });
+
+            modelBuilder.Entity("Provolone.Domains.Entities.User", b =>
+                {
+                    b.HasOne("InternshippClass.Models.Entities.Discipline", "Discipline")
+                        .WithMany("Users")
+                        .HasForeignKey("DisciplineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("InternshippClass.Models.Entities.Role", "Role")
+                        .WithOne("User")
+                        .HasForeignKey("Provolone.Domains.Entities.User", "RoleId");
+
+                    b.Navigation("Discipline");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("InternshippClass.Models.Entities.Discipline", b =>
+                {
+                    b.Navigation("Marks");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("InternshippClass.Models.Entities.Field", b =>
                 {
-                    b.Navigation("Fields");
+                    b.Navigation("Disciplines");
                 });
 
-            modelBuilder.Entity("InternshippClass.Models.Entities.Mark", b =>
+            modelBuilder.Entity("InternshippClass.Models.Entities.Learner", b =>
                 {
-                    b.Navigation("Disciplines");
+                    b.Navigation("Marks");
                 });
 
             modelBuilder.Entity("InternshippClass.Models.Entities.Role", b =>
                 {
                     b.Navigation("Permissions");
+
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("InternshippClass.Models.Entities.VocationalGroup", b =>
                 {
-                    b.Navigation("Disciplines");
-
                     b.Navigation("Learners");
                 });
 #pragma warning restore 612, 618

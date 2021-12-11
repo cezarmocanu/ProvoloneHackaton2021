@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InternshippClass.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,11 @@ namespace Provolone.Domains.Entities
 {
     public class User
     {
+        public User()
+        {
+            UsersToVocationalGroups = new HashSet<UserToVocationalGroup>();
+        }
+
         public int Id { get; set; }
 
         public string Email { get; set; }
@@ -19,8 +25,12 @@ namespace Provolone.Domains.Entities
 
         public string Username { get; set; }
 
-        /*public long RoleId { get; set; }
+        public long? RoleId { get; set; }
 
-        public string Role { get; set; }*/
+        public virtual Role? Role { get; set; }
+
+        public virtual Discipline Discipline { get; set; }
+
+        public virtual ICollection<UserToVocationalGroup> UsersToVocationalGroups { get; set; }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using InternshippClass.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace InternshippClass.Migrations
 {
     [DbContext(typeof(ProvoloneContext))]
-    partial class InternDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211211060510_refactoring-linking-tables")]
+    partial class refactoringlinkingtables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,10 +174,10 @@ namespace InternshippClass.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long>("PermissionId")
+                    b.Property<long?>("PermissionId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("RoleId")
+                    b.Property<long?>("RoleId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -210,10 +212,10 @@ namespace InternshippClass.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
-                    b.Property<long>("VocationalGroupId")
+                    b.Property<long?>("VocationalGroupId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -301,13 +303,13 @@ namespace InternshippClass.Migrations
             modelBuilder.Entity("InternshippClass.Models.Entities.GroupToDiscipline", b =>
                 {
                     b.HasOne("InternshippClass.Models.Entities.Discipline", "Discipline")
-                        .WithMany("GroupToDisciplines")
+                        .WithMany()
                         .HasForeignKey("DisciplineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("InternshippClass.Models.Entities.VocationalGroup", "VocationalGroup")
-                        .WithMany("GroupToDisciplines")
+                        .WithMany()
                         .HasForeignKey("VocationalGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -350,16 +352,12 @@ namespace InternshippClass.Migrations
             modelBuilder.Entity("InternshippClass.Models.Entities.PermissionsToRoles", b =>
                 {
                     b.HasOne("InternshippClass.Models.Entities.Permission", "Permission")
-                        .WithMany("PermissionsToRoles")
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("PermissionId");
 
                     b.HasOne("InternshippClass.Models.Entities.Role", "Role")
-                        .WithMany("PermissionsToRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("RoleId");
 
                     b.Navigation("Permission");
 
@@ -369,16 +367,12 @@ namespace InternshippClass.Migrations
             modelBuilder.Entity("InternshippClass.Models.Entities.UserToVocationalGroup", b =>
                 {
                     b.HasOne("Provolone.Domains.Entities.User", "User")
-                        .WithMany("UsersToVocationalGroups")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.HasOne("InternshippClass.Models.Entities.VocationalGroup", "VocationalGroup")
-                        .WithMany("UsersToVocationalGroups")
-                        .HasForeignKey("VocationalGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("VocationalGroupId");
 
                     b.Navigation("User");
 
@@ -394,7 +388,7 @@ namespace InternshippClass.Migrations
                         .IsRequired();
 
                     b.HasOne("InternshippClass.Models.Entities.Role", "Role")
-                        .WithOne("User")
+                        .WithOne("Users")
                         .HasForeignKey("Provolone.Domains.Entities.User", "RoleId");
 
                     b.Navigation("Discipline");
@@ -404,8 +398,6 @@ namespace InternshippClass.Migrations
 
             modelBuilder.Entity("InternshippClass.Models.Entities.Discipline", b =>
                 {
-                    b.Navigation("GroupToDisciplines");
-
                     b.Navigation("Marks");
 
                     b.Navigation("Users");
@@ -421,31 +413,15 @@ namespace InternshippClass.Migrations
                     b.Navigation("Marks");
                 });
 
-            modelBuilder.Entity("InternshippClass.Models.Entities.Permission", b =>
-                {
-                    b.Navigation("PermissionsToRoles");
-                });
-
             modelBuilder.Entity("InternshippClass.Models.Entities.Role", b =>
                 {
-                    b.Navigation("PermissionsToRoles");
-
-                    b.Navigation("User")
+                    b.Navigation("Users")
                         .IsRequired();
                 });
 
             modelBuilder.Entity("InternshippClass.Models.Entities.VocationalGroup", b =>
                 {
-                    b.Navigation("GroupToDisciplines");
-
                     b.Navigation("Learners");
-
-                    b.Navigation("UsersToVocationalGroups");
-                });
-
-            modelBuilder.Entity("Provolone.Domains.Entities.User", b =>
-                {
-                    b.Navigation("UsersToVocationalGroups");
                 });
 #pragma warning restore 612, 618
         }

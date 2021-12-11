@@ -6,19 +6,16 @@ using System.Threading.Tasks;
 
 namespace InternshippClass.Models.Entities
 {
-    public class Role
+    public class UserToVocationalGroup
     {
-        public Role()
-        {
-            PermissionsToRoles = new HashSet<PermissionsToRoles>();
-        }
-
         public long Id { get; set; }
 
-        public string Name { get; set; }
+     /*   public long UserId { get; set; }
+
+        public long VocationalGroupId { get; set; }*/
 
         public virtual User User { get; set; }
 
-        public virtual ICollection<PermissionsToRoles> PermissionsToRoles { get; set; }
+        public virtual VocationalGroup VocationalGroup { get; set; }
     }
 }

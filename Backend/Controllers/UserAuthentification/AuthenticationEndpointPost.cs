@@ -1,6 +1,8 @@
 ﻿using Hackathon.Contract.Authentication;
+using InternshippClass.Models.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Provolone.Contracts.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -13,11 +15,13 @@ namespace Hackathon.WebApi.Controllers
     [AllowAnonymous]
     public class AuthenticationEndpointPost : Controller
     {
-        private readonly IAuthenticationManager authenticationManager;
+        private readonly IAuthenticationManager AuthenticationManager;
+        private readonly IUserDataAccess UserDataAccess;
 
-        public AuthenticationEndpointPost(IAuthenticationManager testTableManager)
+        public AuthenticationEndpointPost(IAuthenticationManager testTableManager, IUserDataAccess userDataAccess)
         {
-            this.authenticationManager = testTableManager;
+            this.AuthenticationManager = testTableManager;
+            this.UserDataAccess = userDataAccess;
         }
 
         [HttpPost]
@@ -28,7 +32,7 @@ namespace Hackathon.WebApi.Controllers
                 return BadRequest();
             }
 
-            var token = await authenticationManager.GetToken(request.Username, request.Password);
+            var token = await AuthenticationManager.GetToken(request.Username, request.Password);
 
             if(token == null)
             {
@@ -37,8 +41,9 @@ namespace Hackathon.WebApi.Controllers
 
             return Ok(new AuthenticationEndpointGetResponse
             {
-                Token = token
-            });
+                Token = token,
+                UserDetails = await UserDataAccess.GetUserDetails(request.Username),
+            }) ;
         }
     }
 
@@ -52,5 +57,7 @@ namespace Hackathon.WebApi.Controllers
     public partial class AuthenticationEndpointGetResponse
     {
         public string Token { get; set; }
+
+        public UserDetailsDto UserDetails { get; set; }
     }
 }

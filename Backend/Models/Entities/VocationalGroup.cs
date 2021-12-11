@@ -10,7 +10,8 @@ namespace InternshippClass.Models.Entities
         public VocationalGroup()
         {
             Learners = new HashSet<Learner>();
-            Disciplines = new HashSet<Discipline>();
+            GroupToDisciplines = new HashSet<GroupToDiscipline>();
+            UsersToVocationalGroups = new HashSet<UserToVocationalGroup>();
         }
 
         public long Id { get; set; }
@@ -19,12 +20,9 @@ namespace InternshippClass.Models.Entities
 
         public long UserId { get; set; }
 
-        public long DisciplineId { get; set; }
-
-        public virtual ICollection<Discipline> Disciplines { get; set; }
-
-        public long LearnerId { get; set; }
-
         public virtual ICollection<Learner> Learners { get; set; }
+
+        public virtual ICollection<GroupToDiscipline> GroupToDisciplines { get; set; }
+        public virtual ICollection<UserToVocationalGroup> UsersToVocationalGroups { get; set; }
     }
 }
