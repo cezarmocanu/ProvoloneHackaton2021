@@ -35,7 +35,16 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          brightness: Brightness.light,
+          primaryColor: const Color(0xFF68CA87),
+          colorScheme: Theme.of(context).colorScheme.copyWith(
+                primary: const Color(0xFF68CA87),
+                secondary: const Color(0xFF655EB0),
+                background: const Color(0xFFFBFAF7),
+                onBackground: const Color(0xFF2b2d42),
+                onPrimary: const Color(0xFFFBFAF7),
+                onSecondary: const Color(0xFFFBFAF7),
+              ),
         ),
         initialRoute: RoutesEnum.SPLASH,
         routes: routesMap,
