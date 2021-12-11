@@ -55,7 +55,9 @@ namespace Provolone.Persistence.DataAccess
         {
             var user = await dbContext.Users
                 .Include(u => u.Role)
-                .SingleAsync(u => u.Username.Equals(username));
+                .ThenInclude(u => u.PermissionsToRoles)
+                .ThenInclude(u => u.Permission)
+                .SingleAsync(u => u.Username == username);
 
             return UserMapping.MapList(user);
         }

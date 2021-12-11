@@ -20,7 +20,7 @@ namespace InternshippClass.Services.Mappings
                 Lastname = user.Lastname,
                 Username = user.Username,
                 Role = user.Role.Name,
-                //Permissions = user.Role.Permissions.Select(p => p.Name),
+                Permissions = user.Role.PermissionsToRoles.ToList().Select(ptr => ptr.Permission.Name),
             };
         }
     }

@@ -8,6 +8,11 @@ namespace Provolone.Domains.Entities
 {
     public class User
     {
+        public User()
+        {
+            UsersToVocationalGroups = new HashSet<UserToVocationalGroup>();
+        }
+
         public int Id { get; set; }
 
         public string Email { get; set; }
@@ -25,5 +30,7 @@ namespace Provolone.Domains.Entities
         public virtual Role? Role { get; set; }
 
         public virtual Discipline Discipline { get; set; }
+
+        public virtual ICollection<UserToVocationalGroup> UsersToVocationalGroups { get; set; }
     }
 }
