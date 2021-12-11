@@ -32,16 +32,25 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          brightness: Brightness.light,
-          primaryColor: const Color(0xFF68CA87),
           colorScheme: Theme.of(context).colorScheme.copyWith(
-                primary: const Color(0xFF68CA87),
+                primary: const Color(0xfff5f5f5),
                 secondary: const Color(0xFF655EB0),
-                background: const Color(0xFFFBFAF7),
+                background: const Color(0xfff5f5f5),
                 onBackground: const Color(0xFF2b2d42),
-                onPrimary: const Color(0xFFFBFAF7),
-                onSecondary: const Color(0xFFFBFAF7),
+                onPrimary: const Color(0xFF655EB0),
+                onSecondary: const Color(0xFFFFFFFF),
+                brightness: Brightness.light,
               ),
+
+          // colorScheme: Theme.of(context).colorScheme.copyWith(
+          //   primary: const Color(0xFF68CA87),
+          //   secondary: const Color(0xFF655EB0),
+          //   background: const Color(0xFFFBFAF7),
+          //   onBackground: const Color(0xFF2b2d42),
+          //   onPrimary: const Color(0xFFFBFAF7),
+          //   onSecondary: const Color(0xFFFBFAF7),
+          //   brightness: Brightness.light,
+          // ),
         ),
         initialRoute: RoutesEnum.INSTRUCTOR_DASHBOARD,
         routes: routesMap,
