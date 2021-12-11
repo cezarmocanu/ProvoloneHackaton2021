@@ -9,17 +9,17 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["Provolone.csproj", "."]
-RUN dotnet restore "./Provolone.csproj"
+COPY ["InternshippClass.csproj", "."]
+RUN dotnet restore "./InternshippClass.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "Provolone.csproj" -c Release -o /app/build
+RUN dotnet build "InternshippClass.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Provolone.csproj" -c Release -o /app/publish
+RUN dotnet publish "InternshippClass.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-#ENTRYPOINT ["dotnet", "Provolone.dll"]
-CMD ASPNETCORE_URLS=http://*:$PORT DATABASE_URI=postgres://fdpjrvezwyeqoo:fcf4e738e5c666a97c0025b45d5c95ef30b7ed9b4873a360fc39e2e1db622e68@ec2-54-74-156-137.eu-west-1.compute.amazonaws.com:5432/d68r7n54s0qc31 dotnet Provolone.dll
+#ENTRYPOINT ["dotnet", "InternshippClass.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT DATABASE_URI=postgres://ptghsrqecfmzdl:39e2f2b5d61eeb981b7a8f8b715bf1619a7985a26d26a39d4c0a0fbe90cb533e@ec2-54-228-139-34.eu-west-1.compute.amazonaws.com:5432/dbfivm0lgfkfoo dotnet InternshippClass.dll

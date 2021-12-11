@@ -1,7 +1,6 @@
 ﻿using Hackathon.Contract.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -22,20 +21,14 @@ namespace Hackathon.WebApi.Controllers
         }
 
         [HttpPost]
-        [SwaggerOperation(
-           Summary = "Login",
-           Description = "Login using username and password",
-           OperationId = "Login.Login",
-           Tags = new[] { "Login" })
-        ]
-        public IActionResult Handle([FromBody] AuthenticationEndpointGetRequest request, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> Handle([FromBody] AuthenticationEndpointGetRequest request, CancellationToken cancellationToken = default)
         {
             if (request == null)
             {
                 return BadRequest();
             }
 
-            var token = authenticationManager.GetToken(request.Username, request.Password);
+            var token = await authenticationManager.GetToken(request.Username, request.Password);
 
             if(token == null)
             {

@@ -1,9 +1,7 @@
 ﻿using Hackathon.Contract.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Provolone.Contracts.DataAccess;
 using Provolone.Dtos;
-using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -24,12 +22,6 @@ namespace Provolone.Controllers.UserAuthentification
         }
 
         [HttpPost]
-        [SwaggerOperation(
-           Summary = "Register",
-           Description = "Register",
-           OperationId = "Register.Register",
-           Tags = new[] { "Register" })
-        ]
         public async Task<IActionResult> Handle([FromBody] RegisterEndpointPostRequest request, CancellationToken cancellationToken = default)
         {
             if (request == null)
@@ -37,16 +29,16 @@ namespace Provolone.Controllers.UserAuthentification
                 return BadRequest();
             }
 
-            var token = await authenticationManager.AddUserAsync(request);
+            var isAdded = await authenticationManager.AddUserAsync(request);
 
-            if (token == null)
+            if (isAdded == false)
             {
-                return Unauthorized();
+                return BadRequest();
             }
 
             return Ok(new RegisterEndpointPostResponse
             {
-                Data = token
+                IsAdded = isAdded,
             });
         }
 
@@ -56,7 +48,7 @@ namespace Provolone.Controllers.UserAuthentification
 
         public partial class RegisterEndpointPostResponse
         {
-            public UserRegisterDto Data;
+            public bool IsAdded { get; set; }
         }
     }
 }
