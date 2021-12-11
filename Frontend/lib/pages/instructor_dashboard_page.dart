@@ -12,56 +12,57 @@ class InstructorDashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: const Color(0xff242936),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Container(
-                color: const Color(0xff2C313F),
-                child: Column(
-                  children: [
-                    const FittedBox(
-                      child: FlutterLogo(),
-                    ),
-                    Text("Nume judet"),
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 16.0),
-                      child: Divider(
-                        indent: 16,
-                        endIndent: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                    ButtonWidget(btnText: "Dashboard", btnRoute: RoutesEnum.INSTRUCTOR_DASHBOARD),
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 16.0),
-                      child: Divider(
-                        indent: 16,
-                        endIndent: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: exampleGroups.length,
-                        itemBuilder: (context, index) {
-                          return ButtonWidget(btnText: exampleGroups[index], btnRoute: RoutesEnum.INSTRUCTOR_DASHBOARD);
-                        },
-                      ),
-                    ),
-                  ],
+      body: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Column(
+              children: [
+                const FittedBox(
+                  child: FlutterLogo(),
                 ),
-              ),
+                const Text("Nume judet"),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 16.0),
+                  child: Divider(
+                    indent: 16,
+                    endIndent: 16,
+                  ),
+                ),
+                ButtonWidget(
+                  btnText: "Dashboard",
+                  btnRoute: RoutesEnum.INSTRUCTOR_DASHBOARD,
+                  isImportant: true,
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 16.0),
+                  child: Divider(
+                    indent: 16,
+                    endIndent: 16,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: exampleGroups.length,
+                    itemBuilder: (context, index) {
+                      return ButtonWidget(
+                        btnText: exampleGroups[index],
+                        btnRoute: RoutesEnum.INSTRUCTOR_DASHBOARD,
+                        isImportant: false,
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              flex: 6,
+          ),
+          Expanded(
+            flex: 6,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xff242936),
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(100.0), bottomRight: Radius.circular(100.0)),
-                ),
+                color: Theme.of(context).colorScheme.background,
+                // color: Colors.black,
                 child: Column(
                   children: [
                     const TitleWidget(
@@ -74,7 +75,7 @@ class InstructorDashboardPage extends StatelessWidget {
                           titleText: "First Container",
                         ),
                         Container(
-                          color: Colors.green,
+                          color: Theme.of(context).colorScheme.primary,
                           height: 200,
                           width: double.infinity,
                           child: ListView.builder(
@@ -114,8 +115,8 @@ class InstructorDashboardPage extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
