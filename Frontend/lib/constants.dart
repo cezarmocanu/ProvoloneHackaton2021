@@ -1,3 +1,3 @@
 class SharedPrefsKeys {
-  static String TOKEN = "token";
+  static const String TOKEN = "token";
 }

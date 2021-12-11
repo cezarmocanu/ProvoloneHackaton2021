@@ -13,6 +13,7 @@ import '../../constants.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInit()) {
     on<LogIn>(_onLogin);
+    on<LogOut>(_onLogut);
   }
 
   FutureOr<void> _onLogin(LogIn event, Emitter<LoginState> emit) async {
@@ -29,5 +30,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } else {
       emit(LoginAuthFailed());
     }
+  }
+
+  FutureOr<void> _onLogut(LogOut event, Emitter<LoginState> emit) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(SharedPrefsKeys.TOKEN, "");
+    emit(LoginInit());
   }
 }

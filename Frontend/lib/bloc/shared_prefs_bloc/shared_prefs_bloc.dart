@@ -15,6 +15,6 @@ class SharedPrefsBloc extends Bloc<SharedPrefsEvent, SharedPrefsState> {
     Emitter<SharedPrefsState> emit,
   ) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    emit(SharedPrefsLoaded(prefs));
+    emit(SharedPrefsLoaded(prefs.getKeys().isNotEmpty ? prefs : null));
   }
 }

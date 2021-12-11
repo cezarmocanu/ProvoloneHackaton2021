@@ -3,7 +3,6 @@ import 'package:vot_senat_client/widgets/login/login_input.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vot_senat_client/bloc/login_bloc/login_bloc.dart';
 import 'package:vot_senat_client/bloc/login_bloc/login_event.dart';
-import 'package:vot_senat_client/bloc/login_bloc/login_state.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -59,6 +58,8 @@ class LoginFormState extends State<LoginForm> {
                   ),
                 ),
                 onPressed: () {
+                  if (!mounted) return;
+
                   if (_formKey.currentState!.validate()) {
                     context.read<LoginBloc>().add(LogIn(_emailController.text, _passwordController.text));
                   }
@@ -70,5 +71,12 @@ class LoginFormState extends State<LoginForm> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

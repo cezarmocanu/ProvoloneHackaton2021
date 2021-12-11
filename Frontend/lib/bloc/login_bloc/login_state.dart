@@ -1,5 +1,3 @@
-import 'package:vot_senat_client/model/todo.dart';
-
 abstract class LoginState {
   const LoginState();
 }

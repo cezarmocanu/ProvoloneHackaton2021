@@ -7,6 +7,6 @@ abstract class SharedPrefsState {
 class SharedPrefsInit extends SharedPrefsState {}
 
 class SharedPrefsLoaded extends SharedPrefsState {
-  final SharedPreferences prefs;
+  final SharedPreferences? prefs;
   SharedPrefsLoaded(this.prefs);
 }
