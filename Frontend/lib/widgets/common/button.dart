@@ -16,6 +16,7 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color backgroundColor = isImportant ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.primary;
+    Color textColor = isImportant ? Theme.of(context).colorScheme.onSecondary : Theme.of(context).colorScheme.onPrimary;
 
     return Padding(
       padding: const EdgeInsets.only(left: 16.0, top: 0.0, right: 16.0, bottom: 16.0),
@@ -28,7 +29,11 @@ class ButtonWidget extends StatelessWidget {
           );
         },
         child: Container(
-          decoration: BoxDecoration(border: Border.all(color: Colors.transparent), borderRadius: const BorderRadius.all(Radius.circular(8.0)), color: backgroundColor),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.transparent),
+            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+            color: backgroundColor,
+          ),
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -37,7 +42,7 @@ class ButtonWidget extends StatelessWidget {
               Text(
                 btnText,
                 textAlign: TextAlign.start,
-                style: TextStyle(color: Color(Theme.of(context).colorScheme.onSecondary.value)),
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(color: textColor),
               ),
             ],
           ),
