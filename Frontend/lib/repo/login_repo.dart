@@ -14,6 +14,7 @@ class LoginRepo {
       Response response = await post(
         url,
         headers: <String, String>{
+          "accept": "text/plain",
           'Content-Type': 'application/json; charset=UTF-8',
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Credentials": "true", // Required for cookies, authorization headers with HTTPS
