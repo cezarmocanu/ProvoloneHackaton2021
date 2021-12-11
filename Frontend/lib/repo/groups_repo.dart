@@ -30,34 +30,6 @@ List<Group> groups = [
         description: 'Comes from a pretty defavorized environment',
       ),
     ],
-  ),
-  Group(
-    id: 1,
-    name: 'Group 1',
-    instructor: 'Instructor 1',
-    discipline: 'discipline 1',
-    learners: [
-      Learner(
-        id: 1,
-        firstName: 'Giulia',
-        lastName: 'Radu',
-        birthdate: '11.05.2000',
-        age: '21',
-        gender: 'feminine',
-        comesFrom: 'Brasov',
-        description: 'Comes from a defavorized environment',
-      ),
-      Learner(
-        id: 2,
-        firstName: 'Cezar',
-        lastName: 'Mocanu',
-        birthdate: '11.10.1999',
-        age: '22',
-        gender: 'masculine',
-        comesFrom: 'Brasov',
-        description: 'Comes from a pretty defavorized environment',
-      ),
-    ],
   )
 ];
 

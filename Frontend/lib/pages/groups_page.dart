@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vot_senat_client/bloc/groups_bloc/groups_bloc.dart';
 import 'package:vot_senat_client/bloc/groups_bloc/groups_event.dart';
 import 'package:vot_senat_client/bloc/groups_bloc/groups_state.dart';
-import 'package:vot_senat_client/widgets/group-widget/group-widget-list.dart';
+import 'package:vot_senat_client/widgets/group-widget/group_widget_list.dart';
 
 class GroupsPage extends StatefulWidget {
   const GroupsPage({Key? key}) : super(key: key);

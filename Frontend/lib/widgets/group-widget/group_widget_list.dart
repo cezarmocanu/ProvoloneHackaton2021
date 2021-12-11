@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vot_senat_client/model/group.dart';
-import 'package:vot_senat_client/widgets/group-widget/group-widget.dart';
+import 'package:vot_senat_client/widgets/group-widget/group_widget.dart';
 
 class GroupsList extends StatelessWidget {
   final List<Group> groups;
