@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vot_senat_client/bloc/todo_bloc/todo_bloc.dart';
 import 'package:vot_senat_client/routes.dart';
 
+import 'bloc/groups_bloc/groups_bloc.dart';
 import 'bloc/login_bloc/login_bloc.dart';
 import 'bloc/register_bloc/register_bloc.dart';
 import 'bloc/shared_prefs_bloc/shared_prefs_bloc.dart';
@@ -26,6 +27,9 @@ class App extends StatelessWidget {
           create: (BuildContext context) => LoginBloc(),
         ),
         BlocProvider(
+          create: (BuildContext context) => GroupsBloc(),
+        ),
+        BlocProvider(
           create: (BuildContext context) => RegisterBloc(),
         ),
         BlocProvider(
@@ -35,16 +39,25 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          brightness: Brightness.light,
-          primaryColor: const Color(0xFF68CA87),
           colorScheme: Theme.of(context).colorScheme.copyWith(
-                primary: const Color(0xFF68CA87),
+                primary: const Color(0xfff5f5f5),
                 secondary: const Color(0xFF655EB0),
-                background: const Color(0xFFFBFAF7),
+                background: const Color(0xfff5f5f5),
                 onBackground: const Color(0xFF2b2d42),
-                onPrimary: const Color(0xFFFBFAF7),
-                onSecondary: const Color(0xFFFBFAF7),
+                onPrimary: const Color(0xFF655EB0),
+                onSecondary: const Color(0xFFFFFFFF),
+                brightness: Brightness.light,
               ),
+
+          // colorScheme: Theme.of(context).colorScheme.copyWith(
+          //   primary: const Color(0xFF68CA87),
+          //   secondary: const Color(0xFF655EB0),
+          //   background: const Color(0xFFFBFAF7),
+          //   onBackground: const Color(0xFF2b2d42),
+          //   onPrimary: const Color(0xFFFBFAF7),
+          //   onSecondary: const Color(0xFFFBFAF7),
+          //   brightness: Brightness.light,
+          // ),
         ),
         initialRoute: RoutesEnum.SPLASH,
         routes: routesMap,
